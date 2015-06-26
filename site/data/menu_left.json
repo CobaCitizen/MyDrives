@@ -1,0 +1,37 @@
+﻿[
+  { "name": "File Manager", url: "fm.html" },
+  { "name": "node.js site", url: "https://nodejs.org/" },
+  { "name": "zakas", url: "books/nicholas c. zakas - high performance javascript 2010.pdf" },
+  { "name": "test pdf object", url: "pdftest.html" },
+  { "name": "javascript conspect", url: "javascript.html" },
+  {
+    "name": "WW",
+    url: "",
+    submenu: [
+      { "name": "TODO"  , "url": "data/todo.txt" },
+      { "name": "почта" , "url": "https://mail.yandex.com/lite/inbox#folder/2440001130004914442" },
+      { "name": "GitHub", "url": "https://github.com/macumotob" },
+      { "name": "my.kyivstar.ua", "url": "https://my.kyivstar.ua/tbmb/disclaimer/show.do" },
+      { "name": "my.kyivstar help", "url": "https://my.kyivstar.ua/tbmb/help_inside/sendQuestion/show.do"}
+    ]                     
+  },
+  
+  {
+    name: "Книги",
+    url: "",
+    submenu: [
+      { name: "zakas", url: "books/nicholas c. zakas - high performance javascript 2010.pdf" },
+      { name : "Professional JavaScript for Web Developers" , url : "books/zakas/Nicholas C. Zakas - Professional JavaScript for Web Developers (Programmer to Programmer) - 2011.pdf"},
+      { name: "todo", url: "test_nodejs.js?name=sd123&y=iuyiuy" },
+      { name: "todo 2", url: "test_nodejs?name=sd123&y=iuyiuy" },
+      {"name": "worker", url:"../worker/worker1.html"}
+    ]
+  },
+  {
+    name: "Microsoft",
+    url: "",
+    submenu: [
+      { name: "Express Install", url: "https://www.visualstudio.com/en-us/downloads/" }
+    ]
+  }
+]

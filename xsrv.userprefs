@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="xsrv\xsrv.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="site\index.html">
+    <Files>
+      <File FileName="xsrv\Program.cs" Line="13" Column="33" />
+      <File FileName="xsrv\CobaServer.cs" Line="176" Column="47" />
+      <File FileName="e:\Develops\xsrv\xsrv\CobaClient.cs" Line="301" Column="5" />
+      <File FileName="site\data\bread.html" Line="129" Column="47" />
+      <File FileName="site\index.html" Line="134" Column="68" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="E:\Develops\xsrv\xsrv\CobaClient.cs" line="46" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

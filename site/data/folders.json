@@ -1,0 +1,6 @@
+﻿[
+{"name": "Tests" , "path": "c:/tests/"},
+  { "name": "Книги", "path": "E:/Books/" },
+  { "name": "films", "path": "E:/films/" },
+  { "name": "Иван", "path": "E:/Ivan/" }
+]

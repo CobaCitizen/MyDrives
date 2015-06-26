@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xsrv", "xsrv\xsrv.csproj", "{6E110833-77EE-43A9-A14B-34FB78A7428D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "site", "site", "{ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}"
+	ProjectSection(SolutionItems) = preProject
+		site\error.html = site\error.html
+		site\favicon.bmp = site\favicon.bmp
+		site\favicon.ico = site\favicon.ico
+		site\img_view.html = site\img_view.html
+		site\index.html = site\index.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{88FD8F79-18B7-4EAB-ACA8-CE99F6BF65A6}"
+	ProjectSection(SolutionItems) = preProject
+		site\js\bootstrap.min.js = site\js\bootstrap.min.js
+		site\js\coba_upload.js = site\js\coba_upload.js
+		site\js\fm.js = site\js\fm.js
+		site\js\generator.js = site\js\generator.js
+		site\js\jquery.min.js = site\js\jquery.min.js
+		site\js\jquery.min.map = site\js\jquery.min.map
+		site\js\loader.js = site\js\loader.js
+		site\js\table.js = site\js\table.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{840209CA-6E06-4137-A325-2EE82C1A458A}"
+	ProjectSection(SolutionItems) = preProject
+		site\css\bootstrap.min.css = site\css\bootstrap.min.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fonts", "fonts", "{7BA6630A-BD1D-4D6E-83A3-16CE723C153C}"
+	ProjectSection(SolutionItems) = preProject
+		site\fonts\glyphicons-halflings-regular.eot = site\fonts\glyphicons-halflings-regular.eot
+		site\fonts\glyphicons-halflings-regular.svg = site\fonts\glyphicons-halflings-regular.svg
+		site\fonts\glyphicons-halflings-regular.ttf = site\fonts\glyphicons-halflings-regular.ttf
+		site\fonts\glyphicons-halflings-regular.woff = site\fonts\glyphicons-halflings-regular.woff
+		site\fonts\glyphicons-halflings-regular.woff2 = site\fonts\glyphicons-halflings-regular.woff2
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{DB806D0E-D9B8-4377-9FA3-8C774E30B05B}"
+	ProjectSection(SolutionItems) = preProject
+		site\data\bread.html = site\data\bread.html
+		site\data\folders.json = site\data\folders.json
+		site\data\menu_left.json = site\data\menu_left.json
+		site\data\todo.txt = site\data\todo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{DFD9FBFD-9B04-4432-A81C-0057B933CF63}"
+	ProjectSection(SolutionItems) = preProject
+		site\img\1433108711_restart-1.ico = site\img\1433108711_restart-1.ico
+		site\img\arrow_upload.png = site\img\arrow_upload.png
+		site\img\create_folder.png = site\img\create_folder.png
+		site\img\document16x16.png = site\img\document16x16.png
+		site\img\document32x32.png = site\img\document32x32.png
+		site\img\document48x48.png = site\img\document48x48.png
+		site\img\email.png = site\img\email.png
+		site\img\file.ico = site\img\file.ico
+		site\img\folder.bmp = site\img\folder.bmp
+		site\img\folder.ico = site\img\folder.ico
+		site\img\folder.png = site\img\folder.png
+		site\img\folder_closed.ico = site\img\folder_closed.ico
+		site\img\folder-add.png = site\img\folder-add.png
+		site\img\folder-arrow_left.png = site\img\folder-arrow_left.png
+		site\img\go_back.png = site\img\go_back.png
+		site\img\go_first.png = site\img\go_first.png
+		site\img\go_home.png = site\img\go_home.png
+		site\img\go_last.png = site\img\go_last.png
+		site\img\go_next.png = site\img\go_next.png
+		site\img\go_prev.png = site\img\go_prev.png
+		site\img\list.bmp = site\img\list.bmp
+		site\img\menu.png = site\img\menu.png
+		site\img\refresh.png = site\img\refresh.png
+		site\img\tab-arrow_left.png = site\img\tab-arrow_left.png
+		site\img\upload.png = site\img\upload.png
+		site\img\ww_home.png = site\img\ww_home.png
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Debug|x86.ActiveCfg = Debug|x86
+		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Debug|x86.Build.0 = Debug|x86
+		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Release|x86.ActiveCfg = Release|x86
+		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88FD8F79-18B7-4EAB-ACA8-CE99F6BF65A6} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+		{840209CA-6E06-4137-A325-2EE82C1A458A} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+		{7BA6630A-BD1D-4D6E-83A3-16CE723C153C} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+		{DB806D0E-D9B8-4377-9FA3-8C774E30B05B} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+		{DFD9FBFD-9B04-4432-A81C-0057B933CF63} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+	EndGlobalSection
+EndGlobal

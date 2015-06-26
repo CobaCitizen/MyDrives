@@ -1,0 +1,395 @@
+﻿<div>
+<!--#fm-file-row111-->
+<div class="row">
+  <div class="col-xs-12 bg-success">
+    <p style="cursor:pointer"
+       data-method="fm_get_file" data-args="{{encodeURI(item.name)}}"><b>{{item.name}}</b></p>
+
+    <p style="font-size:xx-small;">
+      <div class="row">
+        <div class="col-xs-3">{{coba_format_bytes(item.size)}}</div>
+        <div class="col-xs-3 text-success text-center" data-method="fm_get_file" data-args="{{encodeURI(item.name)}}">view</div>
+        <div class="col-xs-3 text-primary text-center" 
+             data-method="fm.download_file" data-args="{{encodeURI(item.name)}}">download</div>
+        <div class="col-xs-3 text-primary text-center"
+             data-method="fm_delete_file" 
+             data-args="{{encodeURI(item.name)}}"><b>{{get_file_ext(item.name)}}</b></div>
+      </div>
+    </p>
+  </div>
+</div>
+<!--#fm-folder-row111-->
+<div class="row">
+  <div class="btn btn-primary col-xs-12 text-left"
+       data-method="init_document" data-args="{{encodeURIComponent(item.name)}}">
+    {{item.name}}
+  </div>
+</div>
+
+<!--#fm-list-header-->
+<table class="table table-striped" style="cursor:pointer">
+  <!--#fm-list-folder-body-->
+  <tr class="text-primary">
+    <td onclick="init_document('{{item.name}}');"><b><i>{{item.name}}</i></b></td>
+    <td data-method="init_document" data-args="{{item.name}}">&gt;</td>
+  </tr>
+  <!--#fm-list-file-body-->
+  <tr class="text-success">
+    {{* var nm = fm.encode(item.name);}}
+    <td colspan="2" data-method="fm_get_file" data-args="{{nm}}"><p><b>{{item.name}}</b></p>
+      <div class="row">
+        <div class="col-xs-3">{{get_file_ext(item.name)}}</div>
+        <div class="col-xs-3">{{coba_format_bytes(item.size)}}</div>
+        <div class="col-xs-3 text-success text-center"
+             onclick='fm_get_file("{{nm}}");'>view</div>
+        <div class="col-xs-3 text-primary text-center" data-method="fm.download_file" data-args="{{nm}}">download</div>
+      </div>
+    </td>
+  </tr>
+  <!--#fm-list-footer-->
+</table>
+
+<!--#fm-popup-header-->
+<table class="table table-hover">
+  <thead>
+    <tr><th>Перейти в папку</th></tr>
+  </thead>
+  <tbody>
+    <!--#fm-popup-body-->
+    <tr>
+<td data-method="fm_refresh_by_index" data-args="{{index}}">{{item}}</td>
+<td>&gt;</td>
+</tr>
+    <!--#fm-popup-footer-->
+  </tbody>
+</table>
+
+<!--#fm-bread-header-->
+<table class="table table-striped">
+  <tr>
+    <!--#fm-bread-body-->
+    {{*   var text = item; text = text[text.length - 1] == '/' ? text : text + '/';}}
+    <td data-method="fm_refresh_by_index" data-args="{{index}}">{{text}}</td>
+    <!--#fm-bread-footer-->
+  </tr>
+</table>
+
+
+<!--#fm-create-folder-->
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="input-folder-name">New Folder Name</label>
+    <input type="text" class="form-control" id="input-folder-name" placeholder="Enter folder name">
+  </div>
+  <button class="btn btn-default" data-method="fm_refresh">Cancel</button>
+  <button class="btn btn-success" data-method="fm_create_folder">Create</button>
+</form>
+
+<!--#fm-upload-form-->
+  <div class="text-center" >Upload files to server</div>
+
+  <input type="file"
+         onchange="coba_upload_show_info();"
+         id="control_upload_files" multiple style="visibility:hidden;position:absolute;top:-50px;left:-50px" />
+
+  <table class="table">
+    <tr>
+      <td class="text-center text-success" onclick="control_upload_files.click();"><b>Select</b></td>
+      <td class="text-center text-success" onclick="coba_upload_files();"><b>Upload</b></td>
+      <td class="text-center text-success" onclick="fm_refresh();"><b>Cancel</b></td>
+    </tr>
+  </table>
+
+ <table class="table container" id="control_progress"></table>
+
+<!--#fm-empty-folder-->
+<form class="form">
+<div class="col-xs-12 text-center text-danger"><b>{{lng.ef.worning}}</b></div>
+  <div class="col-xs-12 text-center">
+    <p>{{lng.ef.folder}} <b>{{item}}</b> {{lng.ef.is_empty}}.</p>
+      <p>{{lng.ef.can}}
+      <b class="text-success" data-method="create_folder_form">{{lng.ef.create}}</b> ,
+      <b class="text-success" data-method="create_upload_form">{{lng.ef.upload}}</b> {{lng.ef.or}}
+      <b class="text-success" data-method="init_document" data-args="..">{{lng.ef.goback}}</b>
+    </p>
+  </div>
+</form>
+
+
+<!--#fm-upload-complete-->
+<div class="container">
+<p class="text-primary" > Upload complete successfully</p>
+<p> <b data-method="fm_refresh">Refresh folder content</b></p>
+<p> <b data-method="create_upload_form">Upload More files</b></p>
+</div>
+
+<!--#fm-video-header-->
+{{* fm.video.sort();}}
+<div id="rot">
+ <video id="video" width="240px" height="180px" preload="none" src="" controls="controls" onended="fm.video.next();"></video>
+</div>
+<div class="pre-scrollable">
+  <table class="table">
+    <!--#fm-video-body-->
+    <tr id="tr{{index}}" onclick="fm.video.play({{index}});"><td>{{(index+1)}}</td><td>{{item.name}}</td>
+      <td class="text-right">{{coba_format_bytes(item.size)}}</td>
+    </tr>
+    <!--#fm-video-footer-->
+  </table>
+</div>
+
+<!--#fm-audio-header-->
+{{* fm.audio.sort();}}
+<div id="rot">
+  <audio id="audio" src="" controls="controls" onended="fm.audio.next();" ></audio>
+</div>
+<div class="pre-scrollable">
+  <table class="table">
+    <!--#fm-audio-body-->
+    <tr id="tr{{index}}" data-method="fm.audio.play" data-args="{{index}}"><td>{{(index+1)}}</td><td>{{item.name}}</td>
+      <td class="text-right">{{coba_format_bytes(item.size)}}</td></tr>
+    <!--#fm-audio-footer-->
+  </table>
+</div>
+
+<!--#fm-servers-header-->
+<!--#fm-servers-body-->
+<div class="panel panel-default" id="tr{{index}}">
+  <div class="panel-heading">{{(index+1)}}. <b class="text-primary">{{item.name}}</b></div>
+  <div class="panel-body">
+
+    <span>{{item.ip}}</span>     {{item.port}} {{item.dt}}
+
+  </div>
+</div>
+<!--#fm-servers-footer-->
+
+<!--#fm-notes-header-->
+ 
+<ul class="pager">
+  <li class="previous"><a href="#" data-method="fm.show_notes_offset" data-args="-10">Prev</a></li>
+  <li><a href="#" data-method="fm.show_add_note">Add</a></li>
+  <li class="text-danger" id="notes-info">...</li>
+  <li class="next"><a href="#" data-method="fm.show_notes_offset" data-args="10">Next</a></li>
+</ul>
+<!--#fm-notes-body-->
+<div class="panel panel-default" id="tr{{index}}">
+  <div class="panel-heading" style="cursor:pointer;"
+data-method="fm.show_edit_note" data-args="{{item.id}}">{{(index+1+fm.offset)}}.
+ <b class="text-primary">{{item.data}}</b>
+    <span class="glyphicon glyphicon-pencil"></span>
+  </div>
+  <div class="panel-body">
+    {{item.txt}}
+  </div>
+</div>
+
+<!--#fm-notes-footer-->   
+<ul class="pager">
+  <li class="previous"><a href="#" data-method="fm.show_notes_offset" data-args="-10">Prev</a></li>
+  <li><a href="#" data-method="fm.show_add_note">Add</a></li>
+  <li class="text-danger" id="notes-info">...</li>
+  <li class="next"><a href="#" data-method="fm.show_notes_offset" data-args="10">Next</a></li>
+</ul>
+
+
+
+
+<!--#fm-add-note-header-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Add new note</div>
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="txt"></textarea>
+      </div>
+      <button type="button" class="btn btn-default" data-method="fm.show_notes">Cancel</button>
+      <button type="button" class="btn btn-primary"
+              data-method="fm.save_new_note">Save</button>
+    </form>
+</div>
+  <div class="panel-footer">
+  </div>
+</div>
+
+<!--#fm-add-note-body-->
+<!--#fm-add-note-footer-->
+
+<!--#fm-edit-note-header-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Edit {{item.id}} date:{{item.data}}</div>
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="txt" >{{item.txt}}</textarea>
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-method="fm.delete_note" data-args="{{item.id}}">Delete
+      </button>
+      <button type="button" class="btn btn-default" data-method="fm.show_notes">Cancel</button>
+      <button type="button" class="btn btn-primary"
+              data-method="fm.update_note" data-args="{{item.id}}">
+        &nbsp; Save &nbsp;
+      </button>
+    </form>
+  </div>
+  <div class="panel-footer">
+  </div>
+</div>
+
+<!--#fm-edit-note-body-->
+<!--#fm-edit-note-footer-->
+
+
+<!--#fm-links-header-->
+
+<ul class="pager">
+  <li class="previous"><a href="#" data-method="fm.links.show_offset" data-args="-10">Prev</a></li>
+  <li><a href="#" data-method="fm.links.show_add">Add</a></li>
+  <li class="text-danger" id="notes-info">...</li>
+  <li class="next"><a href="#" data-method="fm.links.show_offset" data-args="10">Next</a></li>
+</ul>
+
+
+<!--#fm-links-body-->
+<div class="panel panel-default" id="tr{{index}}">
+  <div class="panel-heading" data-method="fm.links.edit" data-args="{{item.id}}">
+    {{(index+1+fm.links.offset)}}. <b class="text-primary">{{item.title}}</b> id:{{item.id}}
+    <span class="glyphicon glyphicon-pencil"></span>
+  </div>
+  <div class="panel-body">
+    {{item.href}}
+  </div>
+</div>
+
+<!--#fm-links-footer-->
+<ul class="pager">
+  <li class="previous"><a href="#" data-method="fm.links.show_offset" data-args="-10">Prev</a></li>
+  <li><a href="#" data-method="fm.links.show_add">Add</a></li>
+  <li class="text-danger" id="notes-info">...</li>
+  <li class="next"><a href="#" data-method="fm.links.show_offset" data-args="10">Next</a></li>
+</ul>
+
+<!--#fm-links-edit-header-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Edit link Id:{{item.id}} {{item.title}}</div>
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <textarea class="form-control" rows="5" id="title" fm-name="title" >{{item.title}}</textarea>
+        <label for="href">href:</label>
+        <textarea class="form-control" rows="5" id="href" fm-name="href">{{item.href}}</textarea>
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-method="fm.links.delete" data-args="{{item.id}}">
+        Delete
+      </button>
+      <button type="button" class="btn btn-default" data-method="fm.links.show">Cancel</button>
+      <button type="button" class="btn btn-primary"
+              data-method="fm.links.update" data-args="{{item.id}}">
+        &nbsp; Save &nbsp;
+      </button>
+    </form>
+  </div>
+  <div class="panel-footer">
+  </div>
+</div>
+
+<!--#fm-links-edit-body-->
+<!--#fm-links-edit-footer-->
+
+<!--#fm-links-add-header-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Add new link</div>
+  <div class="panel-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <textarea class="form-control" rows="5" id="title" fm-name="title"></textarea>
+        <label for="href">href:</label>
+        <textarea class="form-control" rows="5" id="href" fm-name="href"></textarea>
+      </div>
+      <button type="button" class="btn btn-default" data-method="fm.links.show">Cancel</button>
+      <button type="button" class="btn btn-primary" data-method="fm.links.add">&nbsp; Save &nbsp;</button>
+    </form>
+  </div>
+  <div class="panel-footer">
+  </div>
+</div>
+
+<!--#fm-links-add-body-->
+<!--#fm-links-add-footer-->
+
+
+<!--#fm-mysql-error-->
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ошибка на сервере SQL</h4>
+      </div>
+      <div class="modal-body">
+        <p>Код ошибки {{item.code}}  #<b>{{item.errno}}</b>.</p>
+        <p class="text-danger">{{item.text}}.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!--#fm-images-header-->
+<div >
+  <br>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-method="img.first" class="active"></li>
+      <li data-method="img.prev"></li>
+      <li data-method="img.next"></li>
+      <li data-method="img.last"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+
+      <div class="item active">
+        <img id="img-view" src="" onclick="fm_show_img_modal();" alt="" width="460" height="345"/>
+        <div class="carousel-caption">
+          <h6 id="img-caption"></h6>
+<p><span id="img-index"></span> <span id="img-count"></span></p>
+        </div>
+      </div>
+      <!--#fm-images-body-->
+
+
+<!--#fm-images-footer-->
+    </div>
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#" role="button" data-method="img.prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#" role="button" data-method="img.next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+<!--#fm-->
+<div class="item">
+  <img src="{{fm.join_path() + item}}" alt="{{item}}" width="460" height="345">
+  <div class="carousel-caption">
+    <h6>{{item}}</h6>
+  </div>
+</div>
+
+</div>
