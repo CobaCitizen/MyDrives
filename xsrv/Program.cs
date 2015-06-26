@@ -6,9 +6,12 @@ namespace xsrv
 	{
 		public static void Main (string[] args)
 		{
-			string myFolder = @"E:\Develops\xsrv\site\";
+			//string myFolder = @"E:\Develops\xsrv\site\";
+			string workingFolder = @"E:\github\MyDrives\site\";
 
-			CobaServer server = new CobaServer(myFolder,"192.168.1.5",3030);
+//			Database db = new Database ();
+//			db.Create (workingFolder + "maxbuk.db");
+			CobaServer server = new CobaServer(workingFolder,"192.168.1.5",3030);
 
 			Console.WriteLine(server.ToString());
 			Console.Read ();

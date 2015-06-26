@@ -175,24 +175,32 @@ namespace xsrv
 		public override string ToString(){
 			return string.Format ("host {0} port: {1}\nFolder:{2}", _host, _port, _rootDirectory);
 		}
+		private CobaClient _createClient(){
+			return new CobaClient (_rootDirectory);
+		}
 		private void Process(HttpListenerContext context)
 		{
+			if (context.Request.HttpMethod == "POST") {
+				CobaClient client = _createClient ();
+				client.ExecutePost (context);
+				return;
+			}
 		//	Console.WriteLine ("client : " + context.Request.RemoteEndPoint.ToString ());
 			string filename = context.Request.Url.AbsolutePath;
 			if (filename.Equals ("/get.folder")) {
-				CobaClient client = new CobaClient ();
+				CobaClient client = _createClient ();
 				client.Execute (context, filename);
 				return;
 			}
 
 			if (filename.Equals ("/mkdir")) {
-				CobaClient client = new CobaClient ();
-				client.CreateFolder (context, filename);
+				CobaClient client =  _createClient ();
+				client.CreateFolder (context);
 				return;
 			}
 
 			if (filename.Length >= 2 && filename[0] == '/' && filename[1] == '~') {
-				CobaClient client = new CobaClient ();
+				CobaClient client =  _createClient ();
 				client.Send(context, filename);
 				return;
 			}

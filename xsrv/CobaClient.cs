@@ -15,8 +15,16 @@ namespace xsrv
 	public class CobaClient
 	{
 		private List<FileFolderInfo> _disks;
-		public CobaClient ()
+		private string _workingFolder;
+		public CobaClient (string workingFolder)
 		{
+			_workingFolder = workingFolder;
+		}
+		private void _printRequestHeaders(HttpListenerContext context){
+			Console.WriteLine ("***");
+			foreach (var item in context.Request.Headers.AllKeys) {
+				Console.WriteLine (item.ToString () + ":" + context.Request.Headers [item]);
+			}
 
 		}
 		public void Execute(HttpListenerContext context,string command){
@@ -40,16 +48,84 @@ namespace xsrv
 			}
 
 		}
-		public void CreateFolder(HttpListenerContext context, string url){
+		public void ExecutePost(HttpListenerContext context){
+			//_printRequestHeaders (context);
+
+			try {
+				string s = context.Request.Headers ["coba-file-info"];
+				//s = System.Web.HttpUtility.UrlDecode (s);
+				string name = System.Web.HttpUtility.ParseQueryString (s).Get ("name");
+				string ssize = System.Web.HttpUtility.ParseQueryString (s).Get ("size");
+				string sfilesize = System.Web.HttpUtility.ParseQueryString (s).Get ("filesize");
+				string sstart = System.Web.HttpUtility.ParseQueryString (s).Get ("start");
+				string send = System.Web.HttpUtility.ParseQueryString (s).Get ("end");
+				string action = System.Web.HttpUtility.ParseQueryString (s).Get ("action");
+                   
+				long start = long.Parse (sstart);
+				long end = long.Parse (send);
+				long filesize = long.Parse (sfilesize);
+				long size = long.Parse (ssize);
+
+				_loadPublicFolders ();
+				name = _redirect (name);
+
+//				if(System.IO.File.Exists(name)){
+//					this.SendJson (context, "{result:'ok',msg:'close',offset:" + filesize.ToString() + "}");
+//					return;
+//				}
+				System.IO.Stream body = context.Request.InputStream;
+
+
+				FileMode fm = (action == "open" ? FileMode.CreateNew : FileMode.Append);
+
+				using (FileStream fs = File.Open (name, fm)) {
+					//fs.Seek(start,SeekOrigin.Begin);
+
+					using (BinaryWriter writer = new BinaryWriter (fs)) {
+						byte[] data = new byte[1024 * 64];
+						while (size > 0) {
+							int read = body.Read (data, 0, data.Length);
+							size -= read;
+							if (read > 0) {
+								writer.Write (data, 0, read);
+							}
+						}
+						body.Close ();
+						writer.Close ();
+						writer.Dispose ();
+					}
+					fs.Close ();
+					fs.Dispose ();
+				}
+				if (end >= filesize){
+					action = "close";
+				}
+				Console.WriteLine("action : " + action + " end : " + end.ToString());
+				this.SendJson (context, "{result:'ok',msg:'" + action + "',offset:" + end.ToString() + "}");
+
+			} catch (Exception ex) {
+				Console.WriteLine ("exception: " + ex.ToString ());
+				context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+			}
+		}
+		public void CreateFolder(HttpListenerContext context){
 			try {
 				_loadPublicFolders ();
+
+				const string marker ="/mkdir?";
+			    string url = context.Request.Url.ToString();
+
+				url = url.Substring(url.IndexOf(marker) + marker.Length);
 				url = System.Web.HttpUtility.UrlDecode (url);
 				string folder = System.Web.HttpUtility.ParseQueryString (url).Get ("folder");
+				folder = _redirect(folder);
+
 				string subfolder = System.Web.HttpUtility.ParseQueryString (url).Get ("name");
 
-				Console.WriteLine ("Create folder : " + subfolder + " in " + folder);
+				//Console.WriteLine ("Create folder : " + subfolder + " in " + folder);
 				System.IO.Directory.CreateDirectory(folder + subfolder);
-				this.SendJson(context,"{result:true,msg:'" + subfolder +"}");
+				this.SendJson(context,"{result:true,msg:'" + subfolder +"'}");
+
 			} catch (Exception ex) {
 				Console.WriteLine ("exception: " + ex.ToString ());
 				context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -94,10 +170,6 @@ namespace xsrv
 
 		}
 		public void Send(HttpListenerContext context, string url){
-			//Console.WriteLine ("***");
-			//foreach (var item in context.Request.Headers.AllKeys) {
-			//	Console.WriteLine (item.ToString () + ":" + context.Request.Headers [item]);
-			//}
 			_loadPublicFolders ();
 			url = System.Web.HttpUtility.UrlDecode (url);
 			string filename = _redirect (url);
@@ -211,7 +283,7 @@ namespace xsrv
 		}
 		private void _loadPublicFolders()
 		{
-			string filename = @"E:\github\http_server\site\data\folders.json";
+			string filename = _workingFolder + @"data\folders.json";
 			string s = File.ReadAllText(filename,System.Text.Encoding.UTF8);
 			var ser = new System.Web.Script.Serialization.JavaScriptSerializer ();
 			{
