@@ -1,0 +1,12 @@
+﻿{
+  "lenovoKiev": {
+    "host ": "192.168.1.5",
+    "mashine": "waswas",
+    "port": 3032,
+    "site": "",
+    "folders": [
+      { "name": "Tests", "path": "c:/tests/" },
+      { "name": "Книги", "path": "E:/Books/" }
+    ]
+  }
+}
