@@ -17,12 +17,20 @@
 -->
   <link rel="stylesheet" href="css/bootstrap.min.css" />
 
-  <style>
+  <style>/*
     .carousel-inner > .item > img,
     .carousel-inner > .item > a > img {
       width: 80%;
       margin: auto;
     }
+
+    img1 {
+    transition: -webkit-transform 0.25s ease;
+}
+
+img1:active {
+    -webkit-transform: scale(2);
+}*/
   </style>
 
 
@@ -30,39 +38,88 @@
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/table.js"></script>
+  <script type="text/javascript" src="js/generator.js"></script>
+  <script type="text/javascript" src="js/fm.js"></script>
   <script type="text/javascript" src="js/coba_upload.js"></script>
+
+
 <script type="text/javascript">
+
+  function fm_load_document(){
+    //load_async_script("js/generator.js", function () {
+    generator.load(function () {
+   //       load_async_script("js/fm.js", function () {
+            init_document("root");
+   //         load_async_script("js/coba_upload.js", function () { });
+         });
+   // })
+  //});
+  }
+
+
   function fm_can_goback() {
     return  (fm.can_goback() ? "true" : "false");
   }
-  load_script("js/generator.js", function () {
-    generator.load(function () {
-          load_script("js/fm.js", function () {
-            init_document("root");
-            load_script("js/coba_upload.js", function () { });
-          });
-    })
-  });
+
   history.pushState(null, null, 'index');
+
   window.addEventListener('popstate', function (event) {
     event.returnValue = false;
     event.preventDefault();
     init_document("..");
   });
-  function fm_show_img_modal() {
-    $("#img-modal").modal();
-    $("#img-modal").modal({ keyboard: true });  // initialized with no keyboard
-    $("#img-modal").modal('show');
+
+  //
+
+  function toggleFullScreen() {
+  if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
   }
+}
+  ////////////////////////
+  function fm_restore_main(){
+  var d =  document.getElementById("dd");
+  generator.gen([],"main", "dd");
+  fm_refresh();
+  }
+
+ window.addEventListener('load', function(){
+   fm_load_document();
+ });
+
+ window.addEventListener('click',function(){
+ 	fm_on_click();
+ });
+ window.addEventListener('selectstart',function(){
+ 	return false;
+ });
 
 </script>
 
 </head>
 
-<body onclick="fm_on_click();" onselectstart="return false;" >
-
+<body>
+<div id="dd">
     <!--                         -->
-      
         <table class="table">
           <tr>
             <td>
@@ -117,20 +174,12 @@
             </td>
 
           </tr>
-<!--
-          <tr>
-            <td class="text-primary" onclick="init_document('..');"><b>&lt;</b></td>
-            <td class="text-primary" onclick="make_popup();" id="breadcrumb">Path</td>
-            <td class="text-primary" onclick="create_upload_form();">Upload</td> 
-            <td class="text-primary" onclick="create_folder_form()">Create</td>
-          </tr>
--->
         </table>
 
 
     <div id="td-path" class="container-fluid"></div>
   <!-- pre-scrollable -->
-    <div id="fm-main-content" class="container-fluid pre-scrollable"></div>
-  <div id="img-modal"></div> END
+    <div id="fm-main-content" class="container-fluid"></div>
+</div>
     </body>
     </html>

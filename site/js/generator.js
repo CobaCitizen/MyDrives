@@ -90,7 +90,21 @@ var generator = {
   }
   return html;
 }
-, gen: function (data, maket) {
+, gen: function (data, maket, ident) {
+
+  if(ident) {
+    elem = document.getElementById(ident);
+    if(!elem){
+      alert("generator.gen not found " + ident);
+      return;
+    }
+    var html = this.generate_one(data, "fm-" + maket + "-header", 0);
+
+    elem.innerHTML = html;
+    elem.innerHTML += this.generate(data, "fm-" + maket + "-body", 0);
+    elem.innerHTML += this.generate_one(data, "fm-" + maket + "-footer", 0);
+    return;
+  }
   return this.generate_one(data, "fm-" + maket + "-header", 0)
     + this.generate(data, "fm-" + maket + "-body", 0)
     + this.generate_one(data, "fm-" + maket + "-footer", 0);

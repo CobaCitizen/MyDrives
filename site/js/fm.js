@@ -127,6 +127,11 @@ var img = {
   }
   this.refresh();
 }
+,get_current : function(){
+  var name = this.images[this.index];
+  return fm.join_path() + name;
+
+}
 , refresh: function () {
   var name = this.images[this.index];
   var path = fm.join_path() + name;
@@ -146,6 +151,27 @@ var img = {
     }
   }
 }
+, show_modal : function(filename){
+  var d =  document.getElementById("dd");
+  generator.gen([],"i", "dd");
+  img.find();
+  img.refresh_by_name(decodeURIComponent(filename));
+  //d.requestFullScreen();
+}
+,scale : 1
+, zoomin:function(){
+  //var d = document.getElementById("dd");
+  //d.clientWidth += d.clientWidth *0.1;
+
+  this.image.clientWidth += this.image.clientWidth *0.2;
+}
+,zoomout : function(){
+//  var d = document.getElementById("dd");
+//  d.clientWidth -= d.clientWidth *0.1;
+  this.scale -= 0.5;
+  this.image.style = "transform:scale(" + this.scale + ")";
+
+ }
 };
 //         -----------------------------------
 //                 fm
@@ -417,6 +443,7 @@ function get_file_ext(file) {
   return ext.toLowerCase();
 }
 function create_image_view(parent, filename) {
+ return img.show_modal(filename);
 
   fm_set_main_content(generator.gen(img.images, "images"));
   img.find();

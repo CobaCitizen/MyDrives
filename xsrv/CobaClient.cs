@@ -100,7 +100,7 @@ namespace xsrv
 				if (end >= filesize){
 					action = "close";
 				}
-				Console.WriteLine("action : " + action + " end : " + end.ToString());
+				//Console.WriteLine("action : " + action + " end : " + end.ToString());
 				this.SendJson (context, "{result:'ok',msg:'" + action + "',offset:" + end.ToString() + "}");
 
 			} catch (Exception ex) {
@@ -158,6 +158,10 @@ namespace xsrv
 		private void prepareIPhoneHeader(HttpListenerResponse response,
 			long start,long end,long chunksize,long filesize)
 		{
+			if (end == -1) {
+				end = filesize - 1;
+				chunksize = end - start + 1;
+			}
 			response.StatusCode = (int)HttpStatusCode.PartialContent;
 
 			response.Headers ["Content-Range"] = string.Format("bytes {0}-{1}/{2}",	start,end,filesize);
@@ -231,6 +235,11 @@ namespace xsrv
 								response.Headers ["Content-Type"] = "video/mp4";
 								//Console.WriteLine (start.ToString () + "-" + end.ToString () + "/" + fs.Length.ToString ());
 							}
+						}
+
+						if (end == -1) {
+							end = fs.Length-1;
+							chunksize = end-start+1;
 						}
 						byte[] buffer = new byte[64 * 1024];
 						int read;

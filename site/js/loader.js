@@ -3,6 +3,7 @@
 function id(name) {
   var items = document.querySelectorAll(name);
   return items[0];
+ //return document.getElementById(name);
 }
 function load_async(file,onsuccess) {
   var xhr = new XMLHttpRequest();
