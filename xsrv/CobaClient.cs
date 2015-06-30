@@ -481,6 +481,7 @@ namespace xsrv
 					//		Console.WriteLine("cx: " + p.X + " cy: "+ p.Y + " x:" + x + " y:" + y);
 					//SetCursorPos (p.X + x, p.Y + y);
 					System.Windows.Forms.Cursor.Position = new Point(p.X + x, p.Y + y);
+					Console.WriteLine("x " + x + " y " + y);
 					//			const uint MOUSEEVENTF_MOVE=	0x0001;
 				}
 				this.SendJson (context, "{x:90,y:90}");
