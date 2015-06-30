@@ -5,6 +5,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace xsrv
 {
@@ -441,19 +443,19 @@ namespace xsrv
 		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
 		static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData,
 			UIntPtr dwExtraInfo);
-		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)] 
-		static extern bool SetCursorPos(int xPos, int yPos); 
-		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
-		public static extern bool GetCursorPos(out POINT lpPoint);
+//		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)] 
+//		static extern bool SetCursorPos(int xPos, int yPos); 
+//		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+//		public static extern bool GetCursorPos(out POINT lpPoint);
 
-		public static POINT GetCursorPosition()
+		public static Point GetCursorPosition()
 		{
-			POINT lpPoint;
-			GetCursorPos(out lpPoint);
+			return System.Windows.Forms.Cursor.Position;
+			//GetCursorPos(out lpPoint);
 			//bool success = User32.GetCursorPos(out lpPoint);
 			// if (!success)
 
-			return lpPoint;
+			//return lpPoint;
 		}
 		System.UIntPtr p = new UIntPtr();
 
@@ -475,9 +477,10 @@ namespace xsrv
 					int x = int.Parse (sx);
 					int y = int.Parse (sy);
 
-					POINT p = GetCursorPosition ();
+					Point p = GetCursorPosition ();
 					//		Console.WriteLine("cx: " + p.X + " cy: "+ p.Y + " x:" + x + " y:" + y);
-					SetCursorPos (p.X + x, p.Y + y);
+					//SetCursorPos (p.X + x, p.Y + y);
+					System.Windows.Forms.Cursor.Position = new Point(p.X + x, p.Y + y);
 					//			const uint MOUSEEVENTF_MOVE=	0x0001;
 				}
 				this.SendJson (context, "{x:90,y:90}");
