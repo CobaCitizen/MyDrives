@@ -198,7 +198,11 @@ namespace xsrv
 				client.CreateFolder (context);
 				return;
 			}
-
+			if (filename.Equals ("/mouse")) {
+				CobaClient client = _createClient ();
+				client.ExecuteMouse (context);
+				return;
+			}
 			if (filename.Length >= 2 && filename[0] == '/' && filename[1] == '~') {
 				CobaClient client =  _createClient ();
 				client.Send(context, filename);

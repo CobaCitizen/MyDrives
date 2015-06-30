@@ -2,28 +2,42 @@
 <html>
   <head>
     <title>HTML5 input </title>
+    <script type="text/javascript" src="js/loader.js"></script>
     <script>
 
+    function send_mouse_move(x,y){
+   // x = x > 0 ? 3 : -3;
+  //  y = y > 0 ? 3 : -3;
+    load_sync("mouse?x=" + parseInt(x/10) + "&y=" + parseInt(y/10),function(data){
 
+    });
+    }
+    function send_click(){
+    load_sync("mouse?click=click",function(data){
 
+    });
+    }
     window.addEventListener('load', function(){
  
     var box1 = document.getElementById('body2')
     var statusdiv = document.getElementById('statusdiv')
-    var startx = 0
-    var dist = 0
+    var startx = 0,starty=0;
+    var x = 0,y=0;
  
     box1.addEventListener('touchstart', function(e){
-        var touchobj = e.changedTouches[0] // reference first touch point (ie: first finger)
-        startx = parseInt(touchobj.clientX) // get x position of touch point relative to left edge of browser
+        var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+        startx = parseInt(touchobj.clientX);
+        starty = parseInt(touchobj.clientY);
         statusdiv.innerHTML = 'Status: touchstart<br> ClientX: ' + startx + 'px'
         e.preventDefault()
     }, false)
  
     box1.addEventListener('touchmove', function(e){
         var touchobj = e.changedTouches[0] // reference first touch point for this event
-        var dist = parseInt(touchobj.clientX) - startx
-        statusdiv.innerHTML = 'Status: touchmove<br> Horizontal distance traveled: ' + dist + 'px'
+        var x = parseInt(touchobj.clientX) - startx;
+        var y = parseInt(touchobj.clientY) - starty;
+        send_mouse_move(x,y);
+        statusdiv.innerHTML = 'Status: touchmove<br> x: ' + x + 'px ' + ' y:'+y;
         e.preventDefault()
     }, false)
  
@@ -38,12 +52,13 @@
 </script>
  
   </head>
-  <body id="body2">
-    <div style="width:1200px;height:1200px;background-color:gray;border:10px solid green;">
-     
- 
+  <body >
+  <button onclick="send_click()">Click</button>
+    <div id="body2" style="width:100%;height:600px;background-color:gray;border:10px solid green;"></div>
 <h1 id="statusdiv">Status</h1>
 The script looks lik
-</div>
+<div class="container">OK</div>
+    <div style="width:100%;height:160px;background-color:green;"  onclick="send_click()">click</div>
+
   </body>
   </html>

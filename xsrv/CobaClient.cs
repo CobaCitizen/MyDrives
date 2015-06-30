@@ -3,6 +3,8 @@ using System.Net;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace xsrv
 {
@@ -384,6 +386,106 @@ namespace xsrv
 				context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 			}
 
+		}
+
+		//--------------------------------------------------------------------
+		//  mouse
+		//--------------------------------------------------------------------
+		const uint MOUSEEVENTF_ABSOLUTE = 0x8000;
+		const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
+		const uint MOUSEEVENTF_LEFTUP = 0x0004;
+		const uint MOUSEEVENTF_MIDDLEDOWN = 0x0020;
+		const uint MOUSEEVENTF_MIDDLEUP = 0x0040;
+		const uint MOUSEEVENTF_MOVE = 0x0001;
+		const uint MOUSEEVENTF_RIGHTDOWN = 0x0008;
+		const uint MOUSEEVENTF_RIGHTUP = 0x0010;
+		const uint MOUSEEVENTF_XDOWN = 0x0080;
+		const uint MOUSEEVENTF_XUP = 0x0100;
+		const uint MOUSEEVENTF_WHEEL = 0x0800;
+		const uint MOUSEEVENTF_HWHEEL = 0x01000;
+		[Flags]
+		public enum MouseEventFlags : uint
+		{
+			LEFTDOWN   = 0x00000002,
+			LEFTUP     = 0x00000004,
+			MIDDLEDOWN = 0x00000020,
+			MIDDLEUP   = 0x00000040,
+			MOVE       = 0x00000001,
+			ABSOLUTE   = 0x00008000,
+			RIGHTDOWN  = 0x00000008,
+			RIGHTUP    = 0x00000010,
+			WHEEL      = 0x00000800,
+			XDOWN      = 0x00000080,
+			XUP    = 0x00000100
+		}
+
+		//Use the values of this enum for the 'dwData' parameter
+		//to specify an X button when using MouseEventFlags.XDOWN or
+		//MouseEventFlags.XUP for the dwFlags parameter.
+		public enum MouseEventDataXButtons : uint
+		{
+			XBUTTON1   = 0x00000001,
+			XBUTTON2   = 0x00000002
+		}
+		public struct POINT
+		{
+			public int X;
+			public int Y;
+
+			//public static implicit operator POINT(POINT point)
+			//{
+			//	return new Point(point.X, point.Y);
+			//}
+		}
+
+		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+		static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData,
+			UIntPtr dwExtraInfo);
+		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)] 
+		static extern bool SetCursorPos(int xPos, int yPos); 
+		[DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+		public static extern bool GetCursorPos(out POINT lpPoint);
+
+		public static POINT GetCursorPosition()
+		{
+			POINT lpPoint;
+			GetCursorPos(out lpPoint);
+			//bool success = User32.GetCursorPos(out lpPoint);
+			// if (!success)
+
+			return lpPoint;
+		}
+		System.UIntPtr p = new UIntPtr();
+
+		public void ExecuteMouse(HttpListenerContext context){
+
+			try {
+				string url = context.Request.Url.ToString ();
+				string marker = "mouse";
+				url = url.Substring (url.IndexOf (marker) + marker.Length);
+				string click = System.Web.HttpUtility.ParseQueryString (url).Get ("click");
+				string sx = System.Web.HttpUtility.ParseQueryString (url).Get ("x");
+				string sy = System.Web.HttpUtility.ParseQueryString (url).Get ("y");
+
+				if (click != null) {
+					mouse_event (MOUSEEVENTF_LEFTDOWN, 0, 0, 0, p);
+	//				Thread.Sleep (100);
+					mouse_event (MOUSEEVENTF_LEFTUP, 0, 0, 0, p);
+				} else {
+					int x = int.Parse (sx);
+					int y = int.Parse (sy);
+
+					POINT p = GetCursorPosition ();
+					//		Console.WriteLine("cx: " + p.X + " cy: "+ p.Y + " x:" + x + " y:" + y);
+					SetCursorPos (p.X + x, p.Y + y);
+					//			const uint MOUSEEVENTF_MOVE=	0x0001;
+				}
+				this.SendJson (context, "{x:90,y:90}");
+
+			} catch (Exception ex) {
+				Console.WriteLine ("exception : " + ex.ToString ());
+				context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+			}
 		}
 	}//
 }
