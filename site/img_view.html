@@ -21,19 +21,30 @@
     var ttimer = null;
     var step = 3;
     var mousestep = 6;
+    var scroll_mode = false;
     function send_mouse_move(x,y){
-   // x = x > 0 ? 3 : -3;
-  //  y = y > 0 ? 3 : -3;
-    load_sync("mouse?x=" + parseInt(x/step) + "&y=" + parseInt(y/step),function(data){
-
-    });
+    try{
+   		 x = parseInt(x/step);
+  		 y = parseInt(y/step);
+  		 if(scroll_mode){
+  		 x=0;
+  		 y = y > 0 ? 1 : -1; 
+  		 	load_sync("mouse?action=scroll&x=" + x + "&y=" + y );
+  		 }
+  		 else {
+    		load_sync("mouse?action=move&x=" + x + "&y=" + y );
+    	}
+    	}catch(err){
+    	 	alert(err);
+    	}
     }
     function send_click(){
-   
-    load_sync("mouse?click=click",function(data){
+       load_sync("mouse?action=click");
+    };
+    function send_rclick(){
+       load_sync("mouse?action=rclick");
+    };
 
-    });
-    }
     window.addEventListener('selectstart',function(){
  		return false;
     });
@@ -101,6 +112,14 @@
 	    e.preventDefault();
     });
 
+    document.getElementById('rclick').addEventListener('click', function(e){
+	    send_rclick();
+	    e.preventDefault();
+    });
+    document.getElementById('scroll').addEventListener('click', function(e){
+	    scroll_mode = ! scroll_mode;
+	    e.preventDefault();
+    });
 
 
     var box1 = document.getElementById('body2')
@@ -181,6 +200,11 @@
     <tr>
 	    <td><button id="stepminus" class="btn btn-success">-</button></td>
 	    <td><button id="step" class="btn btn-success">1</button></td>
+	    <td><button id="stepplus" class="btn btn-success">+</button></td>
+	</tr>
+    <tr>
+	    <td><button id="rclick" class="btn btn-success">RCL</button></td>
+	    <td><button id="scroll" class="btn btn-success">1</button></td>
 	    <td><button id="stepplus" class="btn btn-success">+</button></td>
 	</tr>
 	</table>

@@ -41,7 +41,9 @@ function load_async(file,onsuccess) {
       if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
         var text = xhr.responseText;
       //  var heders = xhr.getResponseHeader("content-type");
-        onsuccess(text);
+      if(onsuccess){
+        	onsuccess(text);
+        }
       }
     }
   };
