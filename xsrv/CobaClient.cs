@@ -116,7 +116,7 @@ namespace xsrv
 			    string url = context.Request.Url.ToString();
 
 				url = url.Substring(url.IndexOf(marker) + marker.Length);
-				url = System.Web.HttpUtility.UrlDecode (url);
+				//url = System.Web.HttpUtility.UrlDecode (url);
 				string folder = System.Web.HttpUtility.ParseQueryString (url).Get ("folder");
 				folder = _redirect(folder);
 
@@ -173,6 +173,9 @@ namespace xsrv
 			//Console.WriteLine (start.ToString () + "-" + end.ToString () + "/" + filesize.ToString ());
 
 		}
+		private void _sendTextFile(HttpListener context, string fileName){
+			
+		}
 		public void Send(HttpListenerContext context, string url){
 			_loadPublicFolders ();
 			url = System.Web.HttpUtility.UrlDecode (url);
@@ -201,6 +204,7 @@ namespace xsrv
 							fs.Seek (start, SeekOrigin.Begin);
 						}
 
+						string ext = System.IO.Path.GetExtension(filename);
 
 						var response = context.Response;
 						string userAgent = context.Request.Headers ["User-Agent"];
@@ -220,6 +224,11 @@ namespace xsrv
 								response.ContentLength64 = fs.Length;
 								response.SendChunked = true;
 								response.KeepAlive = false;
+								if(ext == ".txt"){
+									response.ContentType = "text/plain";
+									response.ContentEncoding= Encoding.UTF8;// Encoding.GetEncoding(1251);
+								}
+									
 								response.ContentType = System.Net.Mime.MediaTypeNames.Application.Octet;
 
 							} else {
@@ -241,7 +250,7 @@ namespace xsrv
 							end = fs.Length-1;
 							chunksize = end-start+1;
 						}
-						byte[] buffer = new byte[64 * 1024];
+						byte[] buffer = new byte[128 * 1024];
 						int read;
 						using (BinaryWriter bw = new BinaryWriter (response.OutputStream)) {
 							try {
@@ -285,7 +294,7 @@ namespace xsrv
 			context.Response.ContentType = "application/json";
 			context.Response.ContentLength64 = data.Length;
 			context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
-			context.Response.KeepAlive = true;
+			//context.Response.KeepAlive = true;
 			context.Response.OutputStream.Write(data, 0, data.Length);
 			context.Response.OutputStream.Flush();
 			context.Response.OutputStream.Close();
@@ -422,7 +431,8 @@ namespace xsrv
 					if(_parseMouseCoordinats(url,ref x,ref y))
 					{
 						Simulator.MouseCursorMove(x,y);
-						this.SendJson (context, "{result:true}");
+						string s = NativeMethods.CaptureScreen(true,150,80);
+						this.SendJson (context, "{result:true, msg:'" + s + "'}");
 					}
 					else
 					{

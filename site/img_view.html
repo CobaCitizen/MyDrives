@@ -24,15 +24,19 @@
     var scroll_mode = false;
     function send_mouse_move(x,y){
     try{
-   		 x = parseInt(x/step);
-  		 y = parseInt(y/step);
+   		 x = -parseInt(x/step);
+  		 y = -parseInt(y/step);
   		 if(scroll_mode){
   		 x=0;
   		 y = y > 0 ? 1 : -1; 
   		 	load_sync("mouse?action=scroll&x=" + x + "&y=" + y );
   		 }
   		 else {
-    		load_sync("mouse?action=move&x=" + x + "&y=" + y );
+    		load_async("mouse?action=move&x=" + x + "&y=" + y ,function(data){
+    		var im = document.getElementById("body2");
+    		var x = eval('(' + data + ')');
+    		im.src = x.msg;
+    		});
     	}
     	}catch(err){
     	 	alert(err);
@@ -171,10 +175,11 @@
  
   </head>
   <body >
+  <!--
 <div id="body2" class="container"
-   style="height:160px;background-color:green;"
-
-></div>
+   style="height:160px;background-color:green;"></div>
+   -->
+   <img id="body2" src="" width="100%" />
 <br/>
 
     <table class="table">
@@ -208,5 +213,6 @@
 	    <td><button id="stepplus" class="btn btn-success">+</button></td>
 	</tr>
 	</table>
+
   </body>
   </html>

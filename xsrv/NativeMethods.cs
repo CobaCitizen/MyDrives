@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace xsrv
 {
@@ -133,7 +137,95 @@ namespace xsrv
 				/// <remarks></remarks>
 				MAPVK_VK_TO_VSC_EX = 0x4
 		}
-		
+
+		//-------------------------------------------------------------
+		// screen
+		//-------------------------------------------------------------
+
+		[StructLayout(LayoutKind.Sequential)]
+		struct CURSORINFO
+		{
+			public Int32 cbSize;
+			public Int32 flags;
+			public IntPtr hCursor;
+			public POINTAPI ptScreenPos;
 		}
+
+		[StructLayout(LayoutKind.Sequential)]
+		struct POINTAPI
+		{
+			public int x;
+			public int y;
+		}
+
+		[DllImport("user32.dll", SetLastError = false, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto )]
+		static extern bool GetCursorInfo(out CURSORINFO pci);
+
+		[DllImport("user32.dll", SetLastError = false, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Auto )]
+		static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
+
+		const Int32 CURSOR_SHOWING = 0x00000001;
+
+		public static string CaptureScreen(bool CaptureMouse,int width,int height)
+		{
+			
+			//Bitmap result = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format24bppRgb);
+			Bitmap result = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+			try
+			{
+				using (Graphics g = Graphics.FromImage(result))
+				{
+					Size sz = new Size(width,height);
+					Point p = Simulator.GetMousePosition();
+					//g.CopyFromScreen(p.X + width/2, p.Y + height/2, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
+					int x = p.X - width/2;
+					int y = p.Y - height/2;
+					x = x <0 ?  0 : x;
+					y = y < 0 ? 0 : y;
+					y = y + height > Screen.PrimaryScreen.Bounds.Height 
+						? Screen.PrimaryScreen.Bounds.Height - height : y;
+					g.CopyFromScreen(x, y, 0, 0, sz, CopyPixelOperation.SourceCopy);
+					if (CaptureMouse)
+					{
+						CURSORINFO pci;
+						pci.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(CURSORINFO));
+
+						if (GetCursorInfo(out pci))
+						{
+							if (pci.flags == CURSOR_SHOWING)
+							{
+								//DrawIcon(g.GetHdc(), pci.ptScreenPos.x, pci.ptScreenPos.y, pci.hCursor);
+								DrawIcon(g.GetHdc(),width/2, height/2, pci.hCursor);
+								g.ReleaseHdc();
+							}
+						}
+					}
+				}
+			}
+			catch
+			{
+				result = null;
+			}
+			string s = "data:image/png;base64," + ToBase64String (result, ImageFormat.Png);
+			return s;
+		}
+				public static string ToBase64String(Bitmap bmp, ImageFormat imageFormat) 
+				{ 
+					string base64String = string.Empty; 
+
+					MemoryStream memoryStream = new MemoryStream(); 
+					bmp.Save(memoryStream, imageFormat); 
+
+					memoryStream.Position = 0; 
+					byte[] byteBuffer = memoryStream.ToArray(); 
+
+					memoryStream.Close(); 
+
+					base64String = Convert.ToBase64String(byteBuffer); 
+					byteBuffer = null; 
+
+					return base64String; 
+				}
+		}//
 }
 
