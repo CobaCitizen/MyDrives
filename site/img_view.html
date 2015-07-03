@@ -18,14 +18,28 @@
     <script type="text/javascript" src="js/loader.js"></script>
     <script>
 
+
+    //---------------------------
+    /*
+    var ws = new WebSocket('ws://192.168.1.5:3030/');
+
+	ws.onmessage = function(event) {
+	  console.log('Count is: ' + event.data);
+	};*/
+    //---------------------------
     var ttimer = null;
     var step = 3;
     var mousestep = 6;
     var scroll_mode = false;
     function send_mouse_move(x,y){
     try{
+
+
    		 x = -parseInt(x/step);
   		 y = -parseInt(y/step);
+
+  		// ws.send("x=" + x + "&y=" + y );
+
   		 if(scroll_mode){
   		 x=0;
   		 y = y > 0 ? 1 : -1; 

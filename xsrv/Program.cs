@@ -6,6 +6,7 @@ namespace xsrv
 	{
 		public static void Main (string[] args)
 		{
+			Console.SetBufferSize (100, 100);
 			//string myFolder = @"E:\Develops\xsrv\site\";
 			string workingFolder = @"E:\github\MyDrives\site\";
 

@@ -1,39 +1,21 @@
-﻿<Properties StartupItem="xsrv\xsrv.csproj">
+﻿<Properties StartupItem="xsrv\MaxbukAdmin\MaxbukAdmin.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="site\img_view.html">
+  <MonoDevelop.Ide.Workbench ActiveDocument="xsrv\CobaServer.cs">
     <Files>
-      <File FileName="xsrv\Program.cs" Line="1" Column="1" />
-      <File FileName="xsrv\CobaServer.cs" Line="175" Column="37" />
-      <File FileName="e:\github\MyDrives\xsrv\CobaClient.cs" Line="484" Column="46" />
-      <File FileName="site\img_view.html" Line="101" Column="1" />
-      <File FileName="site\index.html" Line="116" Column="1" />
-      <File FileName="site\js\loader.js" Line="33" Column="1" />
+      <File FileName="xsrv\Program.cs" Line="9" Column="37" />
+      <File FileName="site\img_view.html" Line="28" Column="1" />
+      <File FileName="xsrv\CobaServer.cs" Line="197" Column="4" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="xsrv" expanded="True">
-            <Node name="site" expanded="True">
-              <Node name="js" expanded="True" />
-            </Node>
-            <Node name="xsrv" expanded="True">
-              <Node name="CobaClient.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="E:\Develops\xsrv\xsrv\CobaClient.cs" line="46" column="1" />
       <Breakpoint enabled="false" file="e:\Develops\xsrv\xsrv\CobaServer.cs" line="180" column="1" />
-      <Breakpoint enabled="false" file="E:\github\MyDrives\xsrv\CobaClient.cs" line="118" column="1" />
       <Breakpoint enabled="false" file="E:\github\MyDrives\xsrv\Database.cs" line="23" column="1" />
-      <Breakpoint enabled="false" file="E:\github\MyDrives\xsrv\CobaServer.cs" line="190" column="1" />
+      <Breakpoint enabled="false" file="E:\github\MyDrives\xsrv\CobaServer.cs" line="206" column="1" />
+      <Breakpoint file="E:\github\MyDrives\xsrv\MaxbukAdmin\MainWindow.cs" line="29" column="1" />
+      <Breakpoint file="E:\github\MyDrives\xsrv\CobaServer.cs" line="198" column="5" />
+      <Breakpoint file="E:\github\MyDrives\xsrv\CobaServer.cs" line="185" column="84" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

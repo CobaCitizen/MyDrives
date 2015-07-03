@@ -50,6 +50,7 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Simulator.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="SocketClient.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

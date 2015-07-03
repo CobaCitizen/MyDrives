@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Net.WebSockets;
 
 namespace xsrv
 {
@@ -180,6 +181,12 @@ namespace xsrv
 		}
 		private void Process(HttpListenerContext context)
 		{
+			if (context.Request.IsWebSocketRequest) {
+				SocketClient.CreateSocketThread (context);
+//				SocketClient client = new SocketClient ();
+//				client.Execute (context);
+				return;
+			}
 			if (context.Request.HttpMethod == "POST") {
 				CobaClient client = _createClient ();
 				client.ExecutePost (context);

@@ -76,12 +76,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{DFD9FBFD-9B0
 		site\img\ww_home.png = site\img\ww_home.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxbukAdmin", "xsrv\MaxbukAdmin\MaxbukAdmin.csproj", "{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}.Debug|x86.ActiveCfg = Debug|x86
+		{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}.Debug|x86.Build.0 = Debug|x86
+		{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}.Release|x86.ActiveCfg = Release|x86
+		{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}.Release|x86.Build.0 = Release|x86
 		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Debug|x86.ActiveCfg = Debug|x86
 		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Debug|x86.Build.0 = Debug|x86
 		{6E110833-77EE-43A9-A14B-34FB78A7428D}.Release|x86.ActiveCfg = Release|x86
