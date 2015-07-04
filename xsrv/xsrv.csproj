@@ -51,6 +51,7 @@
     <Compile Include="Simulator.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="SocketClient.cs" />
+    <Compile Include="PHP.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -216,8 +216,14 @@ namespace xsrv
 				return;
 			}
 			string url = context.Request.Url.ToString();
-		//	Console.WriteLine(filename + " url:" + url);
+			Console.WriteLine(filename + " url:" + url);
 			filename = filename.Substring(1);
+
+			if (filename.IndexOf (".php") != -1) {
+				PHP php = new PHP ();
+				php.Execute (context, filename);
+				return;
+			}
 
 			if (string.IsNullOrEmpty(filename))
 			{
@@ -238,7 +244,9 @@ namespace xsrv
 				//Console.WriteLine ("File :" + filename);
 				try
 				{
-					Stream input = new FileStream(filename, FileMode.Open);
+					Stream input = new FileStream(filename, FileMode.Open ,
+						FileAccess.Read,    
+						FileShare.Read);
 
 					//Adding permanent http response headers
 					string mime;
@@ -248,7 +256,7 @@ namespace xsrv
 					context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
 					context.Response.AddHeader("Last-Modified", System.IO.File.GetLastWriteTime(filename).ToString("r"));
 
-					byte[] buffer = new byte[1024 * 16];
+					byte[] buffer = new byte[1024 * 64];
 					int nbytes;
 					while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
 						context.Response.OutputStream.Write(buffer, 0, nbytes);

@@ -76,6 +76,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{DFD9FBFD-9B0
 		site\img\ww_home.png = site\img\ww_home.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "php", "php", "{05474004-1BC9-4637-96B3-0D158D894DDC}"
+	ProjectSection(SolutionItems) = preProject
+		site\php\p1.php = site\php\p1.php
+		site\php\srvlist.php = site\php\srvlist.php
+		site\php\srvlist2.php = site\php\srvlist2.php
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxbukAdmin", "xsrv\MaxbukAdmin\MaxbukAdmin.csproj", "{4DFD4C32-8DE1-416D-992B-7A78B35C3C33}"
 EndProject
 Global
@@ -99,5 +106,6 @@ Global
 		{7BA6630A-BD1D-4D6E-83A3-16CE723C153C} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
 		{DB806D0E-D9B8-4377-9FA3-8C774E30B05B} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
 		{DFD9FBFD-9B04-4432-A81C-0057B933CF63} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
+		{05474004-1BC9-4637-96B3-0D158D894DDC} = {ECA8FB0D-F09E-4CD6-AA81-09A53E77DED9}
 	EndGlobalSection
 EndGlobal

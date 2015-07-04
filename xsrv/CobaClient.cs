@@ -80,7 +80,6 @@ namespace xsrv
 
 				using (FileStream fs = File.Open (name, fm)) {
 					//fs.Seek(start,SeekOrigin.Begin);
-
 					using (BinaryWriter writer = new BinaryWriter (fs)) {
 						byte[] data = new byte[1024 * 64];
 						while (size > 0) {
@@ -187,7 +186,8 @@ namespace xsrv
 				var range = context.Request.Headers ["Range"];					
 
 				try {
-					using (FileStream fs = File.OpenRead (filename)) {
+					using (FileStream fs = new FileStream (filename,FileMode.Open,
+						FileAccess.Read, FileShare.Read)) {
 
 						if (range != null && range.Length > 0) {
 							string[] positions = range.Replace ("bytes=", "").Split ('-');
