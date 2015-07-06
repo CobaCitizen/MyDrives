@@ -146,8 +146,12 @@ public partial class MainWindow: Gtk.Window
 		if (args.Path.Indices.Length == 1) {
 			int index = args.Path.Indices [0];
 			using (MaxbukAdmin.EditDialog frm = new MaxbukAdmin.EditDialog (_disks[index])) {
+				frm.TransientFor = this;
+				frm.Modal = true;
 				frm.SetPosition(WindowPosition.CenterOnParent);
 				frm.ShowAll ();
+
+				ResponseType response = (ResponseType)frm.Run ();
 
 			}
 

@@ -20,7 +20,8 @@ namespace MaxbukAdmin
 
 		protected void OnButtonCancelClicked (object sender, EventArgs e)
 		{
-			this.Destroy ();
+			this.HideAll ();
+			//this.Destroy ();
 		}
 	}
 }
