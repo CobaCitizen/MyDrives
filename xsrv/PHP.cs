@@ -42,6 +42,7 @@ namespace xsrv
 			// Read the standard output of the spawned process.
 			while((s = myStreamReader.ReadLine ()) != null){
 				byte[] data = Encoding.UTF8.GetBytes (s);
+				//byte[] data = Encoding.GetEncoding(1252).GetBytes(s);
 				context.Response.OutputStream.Write (data, 0, data.Length);
 			} while(s != null);
 			context.Response.OutputStream.Flush();

@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-  header("Content-Type: text/plain; charset=utf-8;");
+  header("Content-Type: text/plain; charset=windows-1251;");
   //header("Content-Type: application/json;  charset=windows-1251;");
   //header("Content-Type: text/plain; charset=utf8");
   header("Cache-Control: no-cache");
@@ -30,7 +30,9 @@ if ($conn->connect_error) {
             echo ",";
           }
           echo "{";
-          echo 'id:"' . $row["id"] . '",name:"' . $row["name"] . '",ip:"'
+         // $rname=mb_convert_encoding($row["name"], "UTF-8","WINDOWS-1252");
+         $rname = $row["name"];
+          echo 'id:"' . $row["id"] . '",name:"' . $rname . '",ip:"'
            . $row["ip"] . '",port:"' . $row["port"] . '",regtime:"';
           echo $row["regtime"] . '"'; 
           echo "}";

@@ -1,22 +1,28 @@
-﻿<Properties StartupItem="xsrv\xsrv.csproj">
+﻿<Properties StartupItem="xsrv\MaxbukAdmin\MaxbukAdmin.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="xsrv\MaxbukAdmin\MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="site\php\srvlist2.php">
     <Files>
-      <File FileName="xsrv\MaxbukAdmin\MainWindow.cs" Line="58" Column="4" />
-      <File FileName="e:\github\MyDrives\xsrv\MaxbukAdmin\Program.cs" Line="13" Column="1" />
+      <File FileName="xsrv\CobaClient.cs" Line="292" Column="4" />
+      <File FileName="xsrv\CobaServer.cs" Line="223" Column="26" />
+      <File FileName="xsrv\PHP.cs" Line="16" Column="1" />
+      <File FileName="site\php\srvlist.php" Line="14" Column="5" />
+      <File FileName="site\php\srvlist2.php" Line="11" Column="55" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="xsrv" expanded="True">
-            <Node name="MaxbukAdmin" expanded="True">
-              <Node name="UserInterface" expanded="True">
-                <Node name="MainWindow" selected="True" />
+            <Node name="site" expanded="True">
+              <Node name="php" expanded="True">
+                <Node name="E:\github\MyDrives\site\php\srvlist2.php" selected="True" />
               </Node>
             </Node>
             <Node name="xsrv" expanded="True" />
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

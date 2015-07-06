@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-  header("Content-Type: text/html; charset=windows-1251");
+  //header("Content-Type: text/html; charset=windows-1251");
   header("Content-Type: application/json");
   header("Cache-Control: no-cache");
   

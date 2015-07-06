@@ -216,7 +216,7 @@ namespace xsrv
 				return;
 			}
 			string url = context.Request.Url.ToString();
-			Console.WriteLine(filename + " url:" + url);
+	//		Console.WriteLine(filename + " url:" + url);
 			filename = filename.Substring(1);
 
 			if (filename.IndexOf (".php") != -1) {

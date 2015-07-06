@@ -1,2 +1,5 @@
 xsrv/bin/
 xsrv/obj/
+xsrv/MaxbukAdmin/bin/
+xsrv/MaxbukAdmin/gtk-gui/
+xsrv/MaxbukAdmin/obj/
